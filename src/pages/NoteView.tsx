@@ -125,14 +125,21 @@ const NoteView = () => {
     document.execCommand(`justify${align}`, false);
   };
 
+  const cardClasses = {
+    blue: "bg-blue-50",
+    pink: "bg-pink-50",
+    yellow: "bg-yellow-50",
+    green: "bg-green-50",
+  };
+
   return (
-    <div className="flex h-screen">
+    <div className="flex h-screen bg-gray-50">
       <Sidebar />
       
       <main className="flex-1 flex flex-col h-screen">
         <Header title={isNew ? "NEW NOTE" : "VIEW NOTE"} />
         
-        <div className="flex items-center gap-4 border-b p-4">
+        <div className="flex items-center gap-4 bg-white border-b p-4">
           <Button variant="ghost" onClick={() => navigate("/")}>
             <ArrowLeft size={18} />
             <span>Back</span>
@@ -228,7 +235,7 @@ const NoteView = () => {
           )}
         </div>
         
-        <div className={`flex-1 overflow-auto p-6 ${color ? `bg-${color}-50` : ''}`}>
+        <div className={`flex-1 overflow-auto p-8 ${color ? cardClasses[color] : ''}`}>
           {!isNew && foundNote && !isEditing && (
             <div className="flex items-center text-sm text-gray-500 mb-6">
               <Clock size={16} className="mr-1" />
@@ -237,17 +244,17 @@ const NoteView = () => {
           )}
           
           {isEditing ? (
-            <div className="h-full flex flex-col">
+            <div className="h-full flex flex-col max-w-4xl mx-auto">
               <input
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="Note Title"
-                className="text-2xl font-semibold mb-4 p-2 border-b w-full focus:outline-none"
+                className="text-2xl font-semibold mb-4 p-2 border-b w-full focus:outline-none bg-transparent"
               />
               
               <div 
-                className="flex-1 p-2 border rounded-md focus:outline-none font-[Times_New_Roman] whitespace-pre-wrap"
+                className="flex-1 p-4 border rounded-xl focus:outline-none font-[Times_New_Roman] whitespace-pre-wrap bg-white"
                 contentEditable
                 onInput={(e) => setContent(e.currentTarget.textContent || '')}
                 suppressContentEditableWarning
@@ -255,7 +262,7 @@ const NoteView = () => {
               />
             </div>
           ) : (
-            <div className="h-full">
+            <div className="h-full max-w-4xl mx-auto">
               <h1 className="text-2xl font-semibold mb-6">{title}</h1>
               <div className="prose max-w-none font-[Times_New_Roman]">{content}</div>
             </div>

@@ -1,45 +1,34 @@
 
 import { Search } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 
 interface HeaderProps {
   title: string;
-  username?: string;
 }
 
-export function Header({ title, username = "Sayef mahmud" }: HeaderProps) {
+export function Header({ title }: HeaderProps) {
   return (
-    <header className="w-full flex items-center justify-between py-4">
+    <div className="py-6 px-8 flex items-center justify-between bg-white">
       <h1 className="text-2xl font-bold">{title}</h1>
       
-      <div className="flex items-center gap-4">
-        <div className="relative w-64">
-          <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-500" />
-          <Input 
-            type="search" 
-            placeholder="Search"
-            className="pl-8 bg-gray-50 border-gray-200"
+      <div className="flex items-center gap-6">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <input 
+            type="text" 
+            placeholder="Search" 
+            className="bg-gray-100 rounded-full py-2 pl-10 pr-4 w-[220px] text-sm focus:outline-none"
           />
         </div>
         
         <div className="flex items-center gap-2">
-          <span className="text-sm">{username}</span>
-          <Avatar>
-            <AvatarImage src="" />
-            <AvatarFallback>{username.charAt(0)}</AvatarFallback>
+          <span className="text-sm font-medium">Sayef mahmud</span>
+          <Avatar className="h-8 w-8">
+            <AvatarImage src="/lovable-uploads/10677b01-804f-4bde-9358-8f69585d9548.png" alt="User" />
+            <AvatarFallback>SM</AvatarFallback>
           </Avatar>
         </div>
-        
-        <Button variant="ghost" size="icon" className="ml-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="3" y="5" width="18" height="2" rx="1" fill="currentColor"/>
-            <rect x="3" y="11" width="18" height="2" rx="1" fill="currentColor"/>
-            <rect x="3" y="17" width="18" height="2" rx="1" fill="currentColor"/>
-          </svg>
-        </Button>
       </div>
-    </header>
+    </div>
   );
 }

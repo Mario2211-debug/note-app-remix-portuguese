@@ -1,5 +1,5 @@
 
-import { Clock, MoreHorizontal } from "lucide-react";
+import { Clock, ExternalLink, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -14,19 +14,26 @@ interface NoteCardProps {
 export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
   const navigate = useNavigate();
   
+  const cardClasses = {
+    blue: "bg-blue-50",
+    pink: "bg-pink-50",
+    yellow: "bg-yellow-50",
+    green: "bg-green-50",
+  };
+  
   if (isNew) {
     return (
       <div 
         onClick={() => navigate("/note/new")}
-        className="border-2 border-dashed border-gray-300 rounded-lg h-[180px] flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+        className="border-2 border-dashed border-gray-300 rounded-xl h-[220px] flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
       >
         <div className="text-center">
           <div className="flex justify-center mb-2">
-            <div className="h-10 w-10 bg-gray-100 rounded-full flex items-center justify-center">
-              <span className="text-xl">+</span>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <ExternalLink size={20} className="text-gray-400" />
             </div>
           </div>
-          <p className="text-gray-500 text-sm">New Note</p>
+          <p className="text-gray-500 text-sm font-medium">New Note</p>
         </div>
       </div>
     );
@@ -61,8 +68,8 @@ export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
     <div 
       onClick={handleCardClick}
       className={cn(
-        "note-card cursor-pointer",
-        note.color ? `folder-card-${note.color}` : "bg-white"
+        "rounded-xl p-6 cursor-pointer h-[220px] flex flex-col",
+        note.color ? cardClasses[note.color] : "bg-white"
       )}>
       <div className="flex items-start justify-between mb-3">
         <h3 className="font-medium font-[Times_New_Roman]">{note.title}</h3>
@@ -79,11 +86,14 @@ export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
         </Button>
       </div>
       
-      <p className="text-sm text-gray-600 mb-4 line-clamp-3 font-[Times_New_Roman]">{note.content}</p>
+      <p className="text-sm text-gray-600 mb-4 line-clamp-4 flex-grow font-[Times_New_Roman]">{note.content}</p>
       
-      <div className="flex items-center text-xs text-gray-500">
-        <Clock size={14} className="mr-1" />
-        <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
+      <div className="mt-auto">
+        <p className="text-xs text-gray-500">{formatDate(note.createdAt)}</p>
+        <div className="flex items-center text-xs text-gray-500 mt-1">
+          <Clock size={12} className="mr-1" />
+          <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
+        </div>
       </div>
     </div>
   );

@@ -2,8 +2,7 @@
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { FolderViewDialog } from "@/components/dialogs/FolderViewDialog";
+import { useNavigate } from "react-router-dom";
 import type { Folder } from "@/types";
 
 interface FolderCardProps {
@@ -13,54 +12,74 @@ interface FolderCardProps {
 }
 
 export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) {
+  const navigate = useNavigate();
+  
+  const colorClasses = {
+    blue: "bg-blue-50",
+    pink: "bg-pink-50",
+    yellow: "bg-yellow-50",
+    green: "bg-green-50",
+  };
+  
+  const iconClasses = {
+    blue: "bg-blue-200",
+    pink: "bg-pink-200",
+    yellow: "bg-yellow-200",
+    green: "bg-green-200",
+  };
+  
   if (isNew) {
     return (
-      <div 
+      <div
         onClick={onClick}
-        className="border-2 border-dashed border-gray-300 rounded-lg h-[150px] flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
+        className="border-2 border-dashed border-gray-300 rounded-xl h-[140px] flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
       >
         <div className="text-center">
           <div className="flex justify-center mb-2">
-            <div className="h-10 w-10 bg-gray-100 rounded-full flex items-center justify-center">
-              <span className="text-xl">+</span>
+            <div className="bg-gray-50 rounded-lg p-4">
+              <div className="h-10 w-10 rounded-lg flex items-center justify-center">
+                <span className="text-xl text-gray-400">+</span>
+              </div>
             </div>
           </div>
-          <p className="text-gray-500 text-sm">New folder</p>
+          <p className="text-gray-500 text-sm font-medium">New folder</p>
         </div>
       </div>
     );
   }
   
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-  };
-  
   return (
-    <Dialog>
-      <DialogTrigger asChild>
+    <div 
+      onClick={() => navigate(`/folder/${folder.id}`)}
+      className={cn(
+        "rounded-xl p-6 cursor-pointer h-[140px]",
+        folder.color ? colorClasses[folder.color] : "bg-white",
+      )}
+    >
+      <div className="flex items-start justify-between">
         <div className={cn(
-          "rounded-lg p-4 h-[150px] flex flex-col cursor-pointer",
-          `folder-card-${folder.color}`
+          "p-3 rounded-lg",
+          folder.color ? iconClasses[folder.color] : "bg-gray-100"
         )}>
-          <div className="flex justify-between items-start mb-auto">
-            <div className="w-10 h-10">
-              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 8H20L24 12H32V32H8V8Z" fill="currentColor" fillOpacity="0.4"/>
-              </svg>
-            </div>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <MoreHorizontal size={16} />
-            </Button>
-          </div>
-          
-          <div>
-            <h3 className="font-semibold text-gray-800 mb-1">{folder.title}</h3>
-            <p className="text-xs text-gray-600">{formatDate(folder.createdAt)}</p>
-          </div>
+          <div className={cn(
+            "h-8 w-8 rounded-lg",
+            folder.color ? `bg-${folder.color}-400` : "bg-gray-300"
+          )}></div>
         </div>
-      </DialogTrigger>
-      <FolderViewDialog folder={folder} />
-    </Dialog>
+        
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="h-8 w-8"
+        >
+          <MoreHorizontal size={16} />
+        </Button>
+      </div>
+      
+      <div className="mt-4">
+        <h3 className="font-medium">{folder.title}</h3>
+        <p className="text-xs text-gray-500 mt-1">{folder.createdAt}</p>
+      </div>
+    </div>
   );
 }

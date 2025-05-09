@@ -78,7 +78,7 @@
 
 @layer components {
   .note-card {
-    @apply border rounded-lg p-4 bg-white h-[180px] flex flex-col shadow-sm hover:shadow-md transition-shadow;
+    @apply border rounded-xl p-4 bg-white h-[220px] flex flex-col shadow-sm hover:shadow-md transition-shadow;
   }
   
   .folder-card-blue {
@@ -101,7 +101,7 @@
 /* Traditional notepad styling */
 [contenteditable] {
   outline: none;
-  min-height: 200px;
+  min-height: 300px;
   background-image: 
     repeating-linear-gradient(
       transparent,

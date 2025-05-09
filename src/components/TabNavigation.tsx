@@ -9,19 +9,23 @@ interface TabNavigationProps {
 
 export function TabNavigation({ tabs, activeTab, onChange }: TabNavigationProps) {
   return (
-    <div className="flex border-b mb-6">
-      {tabs.map((tab) => (
-        <button
-          key={tab}
-          onClick={() => onChange(tab)}
-          className={cn(
-            "px-4 py-2 text-sm text-gray-500 hover:text-gray-800",
-            activeTab === tab && "active-tab"
-          )}
-        >
-          {tab}
-        </button>
-      ))}
+    <div className="border-b mb-6">
+      <div className="flex gap-6">
+        {tabs.map((tab) => (
+          <button
+            key={tab}
+            onClick={() => onChange(tab)}
+            className={cn(
+              "pb-2 px-1 text-sm transition-all font-medium relative",
+              activeTab === tab
+                ? "text-black border-b-2 border-black"
+                : "text-gray-500 hover:text-gray-800"
+            )}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }

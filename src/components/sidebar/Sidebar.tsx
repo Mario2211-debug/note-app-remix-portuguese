@@ -11,31 +11,31 @@ interface ColorDotProps {
 }
 
 const ColorDot = ({ color }: ColorDotProps) => (
-  <div className={`w-4 h-4 rounded-full bg-${color}-500 mx-auto my-1`}></div>
+  <div className={`w-3 h-3 rounded-full bg-${color}-500 mx-auto my-0.5`}></div>
 );
 
 export function Sidebar() {
   return (
-    <aside className="w-[230px] h-screen bg-white border-r flex flex-col p-5">
+    <aside className="w-[230px] h-screen bg-white border-r flex flex-col p-6">
       <div className="flex items-center gap-2 mb-8">
         <div className="flex items-center">
-          <div className="h-6 w-6 rounded-full bg-blue-600"></div>
-          <div className="h-6 w-6 rounded-full bg-blue-900 -ml-2 opacity-50"></div>
+          <div className="h-5 w-5 rounded-full bg-blue-600"></div>
+          <div className="h-5 w-5 rounded-full bg-blue-900 -ml-2 opacity-50"></div>
         </div>
         <span className="text-blue-900 font-semibold">MINO</span>
       </div>
       
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className="flex gap-2 mb-6">
-            <Plus size={18} />
+          <Button variant="outline" className="flex gap-2 mb-6 bg-white border-gray-300 text-black">
+            <Plus size={16} />
             <span>Add new</span>
           </Button>
         </DialogTrigger>
         <CreateDialog />
       </Dialog>
       
-      <div className="mb-6 flex flex-col items-center">
+      <div className="mb-6 flex flex-col items-center space-y-1">
         <ColorDot color="yellow" />
         <ColorDot color="blue" />
         <ColorDot color="red" />
@@ -45,7 +45,7 @@ export function Sidebar() {
         <NavLink 
           to="/"
           className={({ isActive }) => cn(
-            "flex items-center gap-2 text-gray-500 hover:text-gray-900 py-1",
+            "flex items-center gap-3 text-gray-500 hover:text-gray-900 py-2",
             isActive && "font-semibold text-gray-900"
           )}
         >
@@ -56,7 +56,7 @@ export function Sidebar() {
         <NavLink 
           to="/calendar"
           className={({ isActive }) => cn(
-            "flex items-center gap-2 text-gray-500 hover:text-gray-900 py-1",
+            "flex items-center gap-3 text-gray-500 hover:text-gray-900 py-2",
             isActive && "font-semibold text-gray-900"
           )}
         >
@@ -67,7 +67,7 @@ export function Sidebar() {
         <NavLink 
           to="/archive"
           className={({ isActive }) => cn(
-            "flex items-center gap-2 text-gray-500 hover:text-gray-900 py-1",
+            "flex items-center gap-3 text-gray-500 hover:text-gray-900 py-2",
             isActive && "font-semibold text-gray-900"
           )}
         >
@@ -78,7 +78,7 @@ export function Sidebar() {
         <NavLink 
           to="/trash"
           className={({ isActive }) => cn(
-            "flex items-center gap-2 text-gray-500 hover:text-gray-900 py-1",
+            "flex items-center gap-3 text-gray-500 hover:text-gray-900 py-2",
             isActive && "font-semibold text-gray-900"
           )}
         >
@@ -87,8 +87,8 @@ export function Sidebar() {
         </NavLink>
       </div>
       
-      <div className="mt-auto">
-        <div className="border rounded-md p-4 text-center">
+      <div className="mt-auto pt-8">
+        <div className="border rounded-xl p-4 text-center">
           <div className="flex justify-center mb-2">
             <img src="/lovable-uploads/10677b01-804f-4bde-9358-8f69585d9548.png" alt="Person icon" className="w-20 h-auto" />
           </div>
