@@ -2,6 +2,8 @@
 import { Clock, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { NoteViewDialog } from "@/components/dialogs/NoteViewDialog";
 import type { Note } from "@/types";
 
 interface NoteCardProps {
@@ -51,23 +53,28 @@ export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
   };
   
   return (
-    <div className={cn(
-      "note-card",
-      note.color ? `folder-card-${note.color}` : "bg-white"
-    )}>
-      <div className="flex items-start justify-between mb-3">
-        <h3 className="font-medium">{note.title}</h3>
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          <MoreHorizontal size={16} />
-        </Button>
-      </div>
-      
-      <p className="text-sm text-gray-600 mb-4 line-clamp-3">{note.content}</p>
-      
-      <div className="flex items-center text-xs text-gray-500">
-        <Clock size={14} className="mr-1" />
-        <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
-      </div>
-    </div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <div className={cn(
+          "note-card",
+          note.color ? `folder-card-${note.color}` : "bg-white"
+        )}>
+          <div className="flex items-start justify-between mb-3">
+            <h3 className="font-medium">{note.title}</h3>
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <MoreHorizontal size={16} />
+            </Button>
+          </div>
+          
+          <p className="text-sm text-gray-600 mb-4 line-clamp-3">{note.content}</p>
+          
+          <div className="flex items-center text-xs text-gray-500">
+            <Clock size={14} className="mr-1" />
+            <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
+          </div>
+        </div>
+      </DialogTrigger>
+      <NoteViewDialog note={note} />
+    </Dialog>
   );
 }

@@ -1,8 +1,10 @@
 
 import { NavLink } from "react-router-dom";
-import { Archive, Calendar, Plus, Trash } from "lucide-react";
+import { Archive, Calendar, Home, Plus, Trash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { CreateDialog } from "@/components/dialogs/CreateDialog";
 
 interface ColorDotProps {
   color: string;
@@ -23,10 +25,15 @@ export function Sidebar() {
         <span className="text-blue-900 font-semibold">MINO</span>
       </div>
       
-      <Button variant="outline" className="flex gap-2 mb-6">
-        <Plus size={18} />
-        <span>Add new</span>
-      </Button>
+      <Dialog>
+        <DialogTrigger asChild>
+          <Button variant="outline" className="flex gap-2 mb-6">
+            <Plus size={18} />
+            <span>Add new</span>
+          </Button>
+        </DialogTrigger>
+        <CreateDialog />
+      </Dialog>
       
       <div className="mb-6 flex flex-col items-center">
         <ColorDot color="yellow" />
@@ -35,6 +42,17 @@ export function Sidebar() {
       </div>
       
       <div className="space-y-4">
+        <NavLink 
+          to="/"
+          className={({ isActive }) => cn(
+            "flex items-center gap-2 text-gray-500 hover:text-gray-900 py-1",
+            isActive && "font-semibold text-gray-900"
+          )}
+        >
+          <Home size={18} />
+          <span>Home</span>
+        </NavLink>
+        
         <NavLink 
           to="/calendar"
           className={({ isActive }) => cn(

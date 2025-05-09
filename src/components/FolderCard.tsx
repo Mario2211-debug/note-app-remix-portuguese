@@ -2,6 +2,8 @@
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogTrigger } from "@/components/ui/dialog";
+import { FolderViewDialog } from "@/components/dialogs/FolderViewDialog";
 import type { Folder } from "@/types";
 
 interface FolderCardProps {
@@ -35,25 +37,30 @@ export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) 
   };
   
   return (
-    <div className={cn(
-      "rounded-lg p-4 h-[150px] flex flex-col cursor-pointer",
-      `folder-card-${folder.color}`
-    )}>
-      <div className="flex justify-between items-start mb-auto">
-        <div className="w-10 h-10">
-          <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M8 8H20L24 12H32V32H8V8Z" fill="currentColor" fillOpacity="0.4"/>
-          </svg>
+    <Dialog>
+      <DialogTrigger asChild>
+        <div className={cn(
+          "rounded-lg p-4 h-[150px] flex flex-col cursor-pointer",
+          `folder-card-${folder.color}`
+        )}>
+          <div className="flex justify-between items-start mb-auto">
+            <div className="w-10 h-10">
+              <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 8H20L24 12H32V32H8V8Z" fill="currentColor" fillOpacity="0.4"/>
+              </svg>
+            </div>
+            <Button variant="ghost" size="icon" className="h-8 w-8">
+              <MoreHorizontal size={16} />
+            </Button>
+          </div>
+          
+          <div>
+            <h3 className="font-semibold text-gray-800 mb-1">{folder.title}</h3>
+            <p className="text-xs text-gray-600">{formatDate(folder.createdAt)}</p>
+          </div>
         </div>
-        <Button variant="ghost" size="icon" className="h-8 w-8">
-          <MoreHorizontal size={16} />
-        </Button>
-      </div>
-      
-      <div>
-        <h3 className="font-semibold text-gray-800 mb-1">{folder.title}</h3>
-        <p className="text-xs text-gray-600">{formatDate(folder.createdAt)}</p>
-      </div>
-    </div>
+      </DialogTrigger>
+      <FolderViewDialog folder={folder} />
+    </Dialog>
   );
 }
