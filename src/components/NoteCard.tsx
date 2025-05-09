@@ -2,8 +2,7 @@
 import { Clock, MoreHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import { NoteViewDialog } from "@/components/dialogs/NoteViewDialog";
+import { useNavigate } from "react-router-dom";
 import type { Note } from "@/types";
 
 interface NoteCardProps {
@@ -13,10 +12,12 @@ interface NoteCardProps {
 }
 
 export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
+  const navigate = useNavigate();
+  
   if (isNew) {
     return (
       <div 
-        onClick={onClick}
+        onClick={() => navigate("/note/new")}
         className="border-2 border-dashed border-gray-300 rounded-lg h-[180px] flex items-center justify-center cursor-pointer hover:border-gray-400 transition-colors"
       >
         <div className="text-center">
@@ -52,29 +53,38 @@ export function NoteCard({ note, isNew = false, onClick }: NoteCardProps) {
     return days[date.getDay()];
   };
   
+  const handleCardClick = () => {
+    navigate(`/note/${note.id}`);
+  };
+  
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <div className={cn(
-          "note-card",
-          note.color ? `folder-card-${note.color}` : "bg-white"
-        )}>
-          <div className="flex items-start justify-between mb-3">
-            <h3 className="font-medium">{note.title}</h3>
-            <Button variant="ghost" size="icon" className="h-8 w-8">
-              <MoreHorizontal size={16} />
-            </Button>
-          </div>
-          
-          <p className="text-sm text-gray-600 mb-4 line-clamp-3">{note.content}</p>
-          
-          <div className="flex items-center text-xs text-gray-500">
-            <Clock size={14} className="mr-1" />
-            <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
-          </div>
-        </div>
-      </DialogTrigger>
-      <NoteViewDialog note={note} />
-    </Dialog>
+    <div 
+      onClick={handleCardClick}
+      className={cn(
+        "note-card cursor-pointer",
+        note.color ? `folder-card-${note.color}` : "bg-white"
+      )}>
+      <div className="flex items-start justify-between mb-3">
+        <h3 className="font-medium font-[Times_New_Roman]">{note.title}</h3>
+        <Button 
+          variant="ghost" 
+          size="icon" 
+          className="h-8 w-8"
+          onClick={(e) => {
+            e.stopPropagation();
+            // Additional menu actions could go here
+          }}
+        >
+          <MoreHorizontal size={16} />
+        </Button>
+      </div>
+      
+      <p className="text-sm text-gray-600 mb-4 line-clamp-3 font-[Times_New_Roman]">{note.content}</p>
+      
+      <div className="flex items-center text-xs text-gray-500">
+        <Clock size={14} className="mr-1" />
+        <span>{timeString(note.createdAt)}, {dayOfWeek(note.createdAt)}</span>
+      </div>
+    </div>
   );
 }

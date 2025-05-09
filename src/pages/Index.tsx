@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Sidebar } from "@/components/sidebar/Sidebar";
 import { Header } from "@/components/Header";
 import { TabNavigation } from "@/components/TabNavigation";
@@ -9,7 +10,6 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { CreateDialog } from "@/components/dialogs/CreateDialog";
 import { LayoutGrid, List, Table, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { NoteViewDialog } from "@/components/dialogs/NoteViewDialog";
 import type { Folder, Note } from "@/types";
 
 const sampleFolders: Folder[] = [
@@ -43,6 +43,7 @@ const sampleNotes: Note[] = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [folderActiveTab, setFolderActiveTab] = useState("Todays");
   const [noteActiveTab, setNoteActiveTab] = useState("Todays");
   const [currentMonth, setCurrentMonth] = useState("December 2021");
@@ -56,7 +57,7 @@ const Index = () => {
         <Header title="MY NOTES" />
         
         <div className="mt-8">
-          <h2 className="text-xl font-semibold mb-4">Recent Folders</h2>
+          <h2 className="text-xl font-semibold mb-4 font-[Times_New_Roman]">Recent Folders</h2>
           
           <TabNavigation 
             tabs={["Todays", "This Week", "This Month"]}
@@ -84,7 +85,7 @@ const Index = () => {
         
         <div className="mt-12">
           <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">My Notes</h2>
+            <h2 className="text-xl font-semibold font-[Times_New_Roman]">My Notes</h2>
             
             <div className="flex items-center gap-2">
               <div className="flex border rounded-md overflow-hidden mr-4">
@@ -135,39 +136,37 @@ const Index = () => {
               {sampleNotes.map(note => (
                 <NoteCard key={note.id} note={note} />
               ))}
-              <Dialog>
-                <DialogTrigger asChild>
-                  <div>
-                    <NoteCard 
-                      isNew 
-                      note={{ id: "", title: "", content: "", createdAt: "" }}
-                    />
-                  </div>
-                </DialogTrigger>
-                <CreateDialog />
-              </Dialog>
+              <NoteCard 
+                isNew 
+                note={{ id: "", title: "", content: "", createdAt: "" }}
+              />
             </div>
           )}
           
           {noteViewMode === "list" && (
             <div className="space-y-2">
               {sampleNotes.map(note => (
-                <Dialog key={note.id}>
-                  <DialogTrigger asChild>
-                    <div className={`p-4 border rounded-md flex justify-between items-center cursor-pointer ${note.color ? `bg-${note.color}-50` : 'bg-white'}`}>
-                      <div>
-                        <h3 className="font-medium">{note.title}</h3>
-                        <p className="text-sm text-gray-500 line-clamp-1">{note.content}</p>
-                      </div>
-                      <div className="flex items-center text-xs text-gray-500">
-                        <Clock size={14} className="mr-1" />
-                        <span>{note.createdAt.split(' ')[1]}</span>
-                      </div>
-                    </div>
-                  </DialogTrigger>
-                  <NoteViewDialog note={note} />
-                </Dialog>
+                <div 
+                  key={note.id}
+                  className={`p-4 border rounded-md flex justify-between items-center cursor-pointer ${note.color ? `bg-${note.color}-50` : 'bg-white'}`}
+                  onClick={() => navigate(`/note/${note.id}`)}
+                >
+                  <div>
+                    <h3 className="font-medium font-[Times_New_Roman]">{note.title}</h3>
+                    <p className="text-sm text-gray-500 line-clamp-1 font-[Times_New_Roman]">{note.content}</p>
+                  </div>
+                  <div className="flex items-center text-xs text-gray-500">
+                    <Clock size={14} className="mr-1" />
+                    <span>{note.createdAt.split(' ')[1]}</span>
+                  </div>
+                </div>
               ))}
+              <div 
+                className="p-4 border-2 border-dashed border-gray-300 rounded-md flex justify-center items-center cursor-pointer hover:border-gray-400"
+                onClick={() => navigate("/note/new")}
+              >
+                <span className="text-gray-500">+ New Note</span>
+              </div>
             </div>
           )}
           
@@ -176,28 +175,33 @@ const Index = () => {
               <table className="w-full">
                 <thead className="bg-gray-50 text-left">
                   <tr>
-                    <th className="p-3">Title</th>
-                    <th className="p-3">Created At</th>
-                    <th className="p-3">Color</th>
+                    <th className="p-3 font-[Times_New_Roman]">Title</th>
+                    <th className="p-3 font-[Times_New_Roman]">Created At</th>
+                    <th className="p-3 font-[Times_New_Roman]">Color</th>
                   </tr>
                 </thead>
                 <tbody>
                   {sampleNotes.map(note => (
-                    <Dialog key={note.id}>
-                      <DialogTrigger asChild>
-                        <tr className="border-t cursor-pointer hover:bg-gray-50">
-                          <td className="p-3">{note.title}</td>
-                          <td className="p-3">{note.createdAt}</td>
-                          <td className="p-3">
-                            {note.color && (
-                              <div className={`w-4 h-4 rounded-full bg-${note.color}-500`}></div>
-                            )}
-                          </td>
-                        </tr>
-                      </DialogTrigger>
-                      <NoteViewDialog note={note} />
-                    </Dialog>
+                    <tr 
+                      key={note.id} 
+                      className="border-t cursor-pointer hover:bg-gray-50"
+                      onClick={() => navigate(`/note/${note.id}`)}
+                    >
+                      <td className="p-3 font-[Times_New_Roman]">{note.title}</td>
+                      <td className="p-3">{note.createdAt}</td>
+                      <td className="p-3">
+                        {note.color && (
+                          <div className={`w-4 h-4 rounded-full bg-${note.color}-500`}></div>
+                        )}
+                      </td>
+                    </tr>
                   ))}
+                  <tr 
+                    className="border-t cursor-pointer hover:bg-gray-50"
+                    onClick={() => navigate("/note/new")}
+                  >
+                    <td colSpan={3} className="p-3 text-center text-gray-500">+ New Note</td>
+                  </tr>
                 </tbody>
               </table>
             </div>

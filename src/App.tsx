@@ -9,6 +9,7 @@ import Calendar from "./pages/Calendar";
 import Archive from "./pages/Archive";
 import Trash from "./pages/Trash";
 import NotFound from "./pages/NotFound";
+import NoteView from "./pages/NoteView";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,8 @@ const App = () => (
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/archive" element={<Archive />} />
           <Route path="/trash" element={<Trash />} />
+          <Route path="/note/:id" element={<NoteView />} />
+          <Route path="/note/new" element={<NoteView />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </TooltipProvider>
