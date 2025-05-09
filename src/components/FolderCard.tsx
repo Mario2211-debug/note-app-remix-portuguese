@@ -59,7 +59,7 @@ export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) 
     <div 
       onClick={() => navigate(`/folder/${folder.id}`)}
       className={cn(
-        "rounded-xl p-6 cursor-pointer h-[140px]",
+        "rounded-xl p-6 cursor-pointer",
         folder.color ? colorClasses[folder.color] : "bg-white",
       )}
     >
@@ -84,7 +84,7 @@ export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) 
       </div>
       
       <div className="mt-4">
-        <h3 className="font-medium">{folder.title}</h3>
+        <h3 className="antialiased font-bold font-stretch-extra-condensed">{folder.title}</h3>
         <p className="text-xs text-gray-500 mt-1">{folder.createdAt}</p>
       </div>
     </div>

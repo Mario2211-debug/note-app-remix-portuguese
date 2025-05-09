@@ -72,7 +72,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
 
@@ -114,8 +114,8 @@
   resize: none;
 }
 
-/* Font for notepad-like experience */
+/* Font for notepad-like experience
 @font-face {
-  font-family: 'Times New Roman';
-  src: local('Times New Roman');
-}
+  font-family: 'Poppins';
+  src: local('Poppins');
+} */
