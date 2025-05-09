@@ -7,8 +7,9 @@ import { FolderCard } from "@/components/FolderCard";
 import { NoteCard } from "@/components/NoteCard";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { CreateDialog } from "@/components/dialogs/CreateDialog";
-import { LayoutGrid, List, Table } from "lucide-react";
+import { LayoutGrid, List, Table, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { NoteViewDialog } from "@/components/dialogs/NoteViewDialog";
 import type { Folder, Note } from "@/types";
 
 const sampleFolders: Folder[] = [
