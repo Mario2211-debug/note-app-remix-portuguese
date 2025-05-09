@@ -1,7 +1,3 @@
-Claro! Abaixo está um exemplo de um README completo baseado na interface exibida na imagem, que aparenta ser de uma aplicação web de anotações chamada "My Notes".
-
----
-
 # 📘 My Notes – Web App
 
 **My Notes** é uma aplicação web elegante e funcional para criação, organização e gerenciamento de anotações. Com uma interface moderna e intuitiva, o usuário pode criar pastas, visualizar notas por período e manter tudo bem categorizado para fácil acesso.
