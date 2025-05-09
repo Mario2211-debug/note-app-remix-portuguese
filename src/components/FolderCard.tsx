@@ -28,6 +28,13 @@ export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) 
     green: "bg-green-200",
   };
   
+  const folderColorClasses = {
+    blue: "bg-blue-400",
+    pink: "bg-pink-400",
+    yellow: "bg-yellow-400", 
+    green: "bg-green-400",
+  };
+  
   if (isNew) {
     return (
       <div
@@ -63,7 +70,7 @@ export function FolderCard({ folder, isNew = false, onClick }: FolderCardProps) 
         )}>
           <div className={cn(
             "h-8 w-8 rounded-lg",
-            folder.color ? `bg-${folder.color}-400` : "bg-gray-300"
+            folder.color ? folderColorClasses[folder.color] : "bg-gray-300"
           )}></div>
         </div>
         
